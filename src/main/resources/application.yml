@@ -1,0 +1,14 @@
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/wn_mall
+    username: postgres
+    password: 123456
+mybatis-plus:
+  global-config:
+    db-config:
+      table-prefix: mall_
+      id-type: auto
+logging:
+  level:
+    com.woniuxy.mall.mapper: debug
