@@ -11,4 +11,11 @@ mybatis-plus:
       id-type: auto
 logging:
   level:
-    com.woniuxy.mall.mapper: debug
+    com.woniuxy.mall:
+      mapper: debug
+      web: debug
+      filter: debug
+
+
+JWT:
+  secretKey: 123456
