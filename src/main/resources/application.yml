@@ -4,11 +4,16 @@ spring:
     url: jdbc:postgresql://localhost:5432/wn_mall
     username: postgres
     password: 123456
+  redis:
+    host: 192.168.11.191
+    port: 6379
 mybatis-plus:
   global-config:
     db-config:
       table-prefix: mall_
       id-type: auto
+  #mapper-locations: mappers.MenuMapper.xml
+  #type-aliases-package: com.woniuxy.mall.mapper
 logging:
   level:
     com.woniuxy.mall:
@@ -16,6 +21,11 @@ logging:
       web: debug
       filter: debug
 
-
+minio:
+  endpoint: http://192.168.11.191:9000
+  accessKey: minioadmin
+  secretKey: minioadmin
+  bucketName: goods
 JWT:
   secretKey: 123456
+

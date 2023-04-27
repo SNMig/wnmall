@@ -17,6 +17,9 @@ public class ResponseResult<T> {
         this.code = responseCode.getCode();
         this.msg = responseCode.getMsg();
     }
+    public ResponseResult(T data){
+        this(ResponseCode.SUCCESS,data);
+    }
     public static ResponseResult<Void>ok(){
         return new ResponseResult<>(ResponseCode.SUCCESS);
     }

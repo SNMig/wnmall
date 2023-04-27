@@ -28,7 +28,7 @@ public class AuthFilter implements Filter {
         res.setCharacterEncoding("UTF-8");
         res.setContentType("application/json;charset=UTF-8");
         String path=req.getRequestURI();
-        if (path.equals("/api/admin/login")){
+        if (path.equals("/api/admin/login")||path.equals("/api/captcha")||path.equals("/api/upload")){
             chain.doFilter(request, response);
             return;
         }
@@ -55,6 +55,7 @@ public class AuthFilter implements Filter {
                 writer.close();
             }
         }catch (Exception e){
+            e.printStackTrace();
             ResponseResult<Void> responseResult=new ResponseResult<>(ResponseCode.FAIL);
             ObjectMapper objectMapper=new ObjectMapper();
             String result=objectMapper.writeValueAsString(responseResult);
@@ -62,6 +63,7 @@ public class AuthFilter implements Filter {
             writer.write(result);
             writer.close();
         }
+        
 
 
     }

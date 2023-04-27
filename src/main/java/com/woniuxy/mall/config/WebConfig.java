@@ -2,6 +2,7 @@ package com.woniuxy.mall.config;
 
 import com.woniuxy.mall.filter.AuthFilter;
 import com.woniuxy.mall.filter.CorsFilter;
+import com.woniuxy.mall.filter.PermFilter;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,6 +26,15 @@ public class WebConfig {
         filterFilterRegistrationBean.setOrder(1);
         return filterFilterRegistrationBean;
     }
+
+    @Bean
+    public FilterRegistrationBean<PermFilter> permFilterRegistrationBean(){
+        FilterRegistrationBean<PermFilter>filterFilterRegistrationBean=new FilterRegistrationBean<>();
+        filterFilterRegistrationBean.setFilter(permFilter());
+        filterFilterRegistrationBean.addUrlPatterns("/*");
+        filterFilterRegistrationBean.setOrder(2);
+        return filterFilterRegistrationBean;
+    }
     @Bean
     public CorsFilter corsFilter(){
         return new CorsFilter();
@@ -32,5 +42,9 @@ public class WebConfig {
     @Bean
     public AuthFilter authFilter(){
         return new AuthFilter();
+    }
+    @Bean
+    public PermFilter permFilter(){
+        return new PermFilter();
     }
 }

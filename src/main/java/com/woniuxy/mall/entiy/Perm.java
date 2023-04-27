@@ -3,10 +3,9 @@ package com.woniuxy.mall.entiy;
 import lombok.Data;
 
 @Data
-public class Menu {
+public class Perm {
     private Integer id;
     private String name;
-    private String link;
+    private String url;
     private Integer pid;
-
 }

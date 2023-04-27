@@ -39,7 +39,7 @@ public class AdminController {
         }
         //产生JWT，保存到响应头
         String token = JWT.create()
-                .setPayload("id", admin.getId())
+                .setPayload("id", String.valueOf(admin.getId()))
                 .setPayload("account", admin.getAccount())
                 .setKey(secretKey.getBytes())
                 .sign();
@@ -50,12 +50,14 @@ public class AdminController {
     @GetMapping("/test")
     public ResponseResult<Void> test(@RequestHeader String authorization){
 
-
-// 密钥
+        log.debug("authorization:{}",authorization);
+        JWT jwt=JWT.of(authorization);
+        Object id=jwt.getPayload("id");
+        log.debug("{}",id);
+        // 密钥
         byte[] key = secretKey.getBytes();
-
 // 默认验证HS265的算法
-        System.out.println(JWT.of(authorization).setKey(key).verify());
+        JWT.of(authorization).setKey(key).verify();
 
         return ResponseResult.ok();
 
