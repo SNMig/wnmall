@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<div class="header" th:fragment="header">
+		<h1 class="logo">
+			<a title="" th:style="|background:url(@{/images/logo.png});|"
+				th:href="@{/}">电子商务平台</a>
+		</h1>
+		<ul class="shortcut">
+			<li class="first"><a th:href="@{/ucenter/}">个人中心</a></li>
+			<li><a th:href="@{/ucenter/}">我的订单</a></li>
+		</ul>
+		<p class="loginfo">
+			<th:block th:if="${session.user}">
+				<th:block th:text="${session.user.account}"></th:block>！您好，欢迎您来到<th:block
+					th:text="${application.site}" />购物！[<a
+					th:href="@{/user?opr=logout}" class="reg">安全退出</a>]
+	  		</th:block>
+			<th:block th:unless="${session.user}">
+	  		[<a th:href="@{/login}">登录</a>
+				<a class="reg" th:href="@{/register}">免费注册</a>]
+	  		</th:block>
+		</p>
+	</div>
+
+	<div class="navbar" th:fragment="navbar">
+		<ul>
+			<li><a th:href="@{/}">首页</a></li>
+			<li th:each="category : ${categories}"><a
+				th:href="@{/books/{id}(id=${category.id})}"
+				th:text="${category.name}">图书分类</a></li>
+		</ul>
+		<div class="mycart">
+			<dl>
+				<dt>
+					<a th:href="@{/cart?opr=view}">购物车<b name="mycart_count">12</b>件
+					</a>
+				</dt>
+				<dd>
+					<a th:href="@{cart}">去结算</a>
+				</dd>
+			</dl>
+			<!--购物车浮动div 开始-->
+			<div class="shopping" id="div_mycart" style="display: none;">
+				<dl class="cartlist" id="shopcarDiv">
+
+					<dd id="site_cart_dd_0">
+						<div class="pic f_l">
+							<img width="55" height="55" src="">
+						</div>
+						<h3 class="title f_l">
+							<a href="">111</a>
+						</h3>
+						<div class="price f_r t_r">
+							<b class="block">1200 </b> <input class="del" type="button"
+								value="删除" onclick="del('')">
+						</div>
+					</dd>
+					<dd class="static">
+						<span>共<b name="mycart_count">12</b>件商品
+						</span>金额总计：<b name="mycart_sum">1200.00</b>
+					</dd>
+					<dd class="static">
+						<label class="btn_orange"><input type="button"
+							value="去购物车结算" onclick="location.href='mycart"></label>
+					</dd>
+				</dl>
+			</div>
+		</div>
+	</div>
+
+	<div class="searchbar" th:fragment="search">
+		<div class="allsort">
+			<a href="javascript:void(0);">全部商品分类</a>
+
+			<!--总的商品分类-开始-->
+			<ul class="sortlist" id='div_allsort' style='display: none'>
+				<li th:each="category : ${categories}">
+					<h2>
+						<a th:href="@{/books/{categoryId}(categoryId=${category.id})}"
+							th:text="${category.name}">图书</a>
+					</h2>
+				</li>
+			</ul>
+		</div>
+
+		<div class="searchbox">
+			<form method='get' th:action='@{/search}'>
+				<input class="text" type="text" name='q' autocomplete="off"
+					placeholder="输入关键字..." /> <input class="btn" type="submit"
+					value="商品搜索" />
+			</form>
+
+		</div>
+		<div class="hotwords">
+			热门搜索：<a th:href="@{/search?q=Java}">Java</a>
+		</div>
+	</div>
+	<div class="help m_10" th:fragment="help">
+		<div class="cont clearfix">
+			<dl>
+				<dt>
+					<a href="">购物指南</a>
+				</dt>
+				<dd>
+					<a href="">订单状态</a>
+				</dd>
+				<dd>
+					<a href="">购物流程</a>
+				</dd>
+			</dl>
+			<dl>
+				<dt>
+					<a href="">支付帮助</a>
+				</dt>
+				<dd>
+					<a href="">支付帮助</a>
+				</dd>
+				<dd>
+					<a href="">在线支付</a>
+				</dd>
+				<dd>
+					<a href="">货到付款</a>
+				</dd>
+			</dl>
+			<dl>
+				<dt>
+					<a href="">配送帮助</a>
+				</dt>
+				<dd>
+					<a href="">EMS/邮政普包</a>
+				</dd>
+				<dd>
+					<a href="">商品验货与签收</a>
+				</dd>
+				<dd>
+					<a href="">配送范围及运费</a>
+				</dd>
+			</dl>
+			<dl>
+				<dt>
+					<a href="">售后服务</a>
+				</dt>
+				<dd>
+					<a href="">售后服务</a>
+				</dd>
+				<dd>
+					<a href="">发票制度</a>
+				</dd>
+				<dd>
+					<a href="">退货说明</a>
+				</dd>
+				<dd>
+					<a href="">换货说明</a>
+				</dd>
+			</dl>
+			<dl>
+				<dt>
+					<a href="">帮助信息</a>
+				</dt>
+				<dd>
+					<a href="">友情链接</a>
+				</dd>
+				<dd>
+					<a href="">联系客服</a>
+				</dd>
+				<dd>
+					<a href="">找回密码</a>
+				</dd>
+				<dd>
+					<a href="">关于我们</a>
+				</dd>
+			</dl>
+		</div>
+	</div>
+	<div class="footer" th:fragment="footer">
+		<p class="links">
+			<a href="">关于我们</a>|<a href="">常见问题</a>|<a href="">安全交易</a>|<a
+				href="">购买流程</a>|<a href="">如何付款</a>|<a href="">联系我们</a>|<a href="">合作提案</a>
+		</p>
+		Copyright © 2015-2021 <a class="copyys" target="_blank" href="">蜀ICP备01000010号</a>
+	</div>
+
+	<ul th:fragment="hotsaleindex" class="prolist">
+		<li th:each="book : ${books}"><a
+			th:href="@{/book/{id}(id=${book.id})}"><img
+				th:src="@{${book.thumbnail}}" width="85" height="85"
+				th:alt-title="${book.name}" /></a>
+			<p class="pro_title">
+				<a th:href="@{/book/{id}(id=${book.id})}" th:text="${book.name}">图书名称</a>
+			</p>
+			<p class="brown">
+				￥<b th:text="${book.salePrice}">￥5688</b>
+			</p></li>
+	</ul>
+	<ul class="ranklist" th:fragment="ranklist">
+		<li class="current" th:each="book : ${books}"><a
+			th:href="@{/book/{id}(id=${book.id})}"><img width="58px"
+				height="58px" alt="" th:src="@{'/'+${book.thumbnail}}" /></a> <a
+			th:title="${book.name}" class="p_name"
+			th:href="@{/book/{id}(id=${book.id})}" th:text="${book.name}">图书</a>
+			<b th:text="${book.salePrice}">￥5688.00</b></li>
+	</ul>
+</body>
+</html>

@@ -1,0 +1,79 @@
+<div class="navbar">
+	<ul>
+		<li><a href="">首页</a></li>
+		<li th:each="category : ${application.categoriesForNav}"><a th:href="@{/goods?opr=list&categoryid={cid}(cid=${category.id})}"
+			th:text="${category.name}">科技</a></li>
+	</ul>
+	<div class="mycart">
+		<dl>
+			<dt>
+				<a href="cart?opr=view">购物车<b name="mycart_nums" id="mycart_nums">0</b>件
+				</a>
+			</dt>
+			<dd>
+				<a href="cart?opr=view">去结算</a>
+			</dd>
+		</dl>
+		<!--购物车浮动div 开始-->
+		<div class="shopping" id="div_mycart" style="display: none;">
+			<dl class="cartlist" id="shopcarDiv">
+			</dl>
+		</div>
+		<script>
+		$(function(){
+			  $.getJSON("cart?opr=viewnums",function(result){
+				  if(result.code==200){
+					  $("#mycart_nums").text(result.data);
+				  }
+			   });
+				$("#mycart_nums").parent().mouseover(function(){
+					$.getJSON("cart?opr=getcarts",function(result){
+						if(result.code==200){
+							$("#div_mycart").css("display","block");
+							let html=template("cartTemplate",{"data":result.data});
+							$("#shopcarDiv").html(html);
+						}
+					})
+				});
+				$("#div_mycart").mouseleave(function(){
+					$(this).css("display","none");
+				});
+		})
+		 
+			
+			function del(id,cart){
+				if(confirm("您确认删除吗?")){
+					$.getJSON("cart?opr=del&id="+id,function(result){
+						if(result.code==200){
+							cart.parent().parent().remove();
+						}
+					});	
+				}
+			}
+		</script>
+		<script type="text/html" id="cartTemplate">
+           {{each data as cart}}
+			<dd id="site_cart_dd_0" >
+					<div class="pic f_l">
+						<img width="55" height="55" src="{{cart.goods.image}}">
+					</div>
+					<h3 class="title f_l">
+						<a th:href="@{/goods?opr=view&id={{cart.goods.id}}}">{{cart.goods.name}}</a>
+					</h3>
+					<div class="price f_r t_r">
+						￥<b class="block">{{cart.price}} </b> <input class="del" type="button"
+							value="删除" onclick="del('{{cart.id}}',this)">
+					</div>
+				</dd>
+          {{/each}}
+				<dd class="static">
+					<span>共<b name="mycart_count">{{data.length}}</b>件商品
+					</span>金额总计：<b name="mycart_sum">1200.00</b>
+				</dd>
+				<dd class="static">
+					<label class="btn_orange"><input type="button"
+						value="去购物车结算" onclick="location.href='cart?opr=view'"></label>
+				</dd>
+		</script>
+	</div>
+</div>

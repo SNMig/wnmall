@@ -7,6 +7,10 @@ spring:
   redis:
     host: 192.168.11.191
     port: 6379
+  mail:
+    host: smtp.qq.com #SMTP服务器地址
+    username: 1048321255@qq.com #登陆账号
+    password: yepzkejtozjlbfee #登陆密码（或授权码）
 mybatis-plus:
   global-config:
     db-config:
@@ -20,6 +24,7 @@ logging:
       mapper: debug
       web: debug
       filter: debug
+      portal: debug
 
 minio:
   endpoint: http://192.168.11.191:9000

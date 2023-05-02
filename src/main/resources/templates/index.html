@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8"></meta>
+<title th:text="|首页_${application.name}|">首页_蜗牛图书书城</title>
+<link type="text/css" rel="stylesheet" th:href="@{/css/index.css}"/>
+</head>
+
+<body class="index">
+	<div class="container">
+		<div th:replace="~{commons::header}"></div>
+		<div th:replace="~{navbar}"></div>
+		<div th:replace="~{search}"></div>
+
+		<div class="wrapper clearfix">
+			<div class="sidebar f_r">
+				<!--热卖商品-->
+				<div class="hot box m_10">
+					<div class="title">
+						<h2>热卖商品</h2>
+					</div>
+					<div class="cont clearfix">
+						<ul class="prolist">
+							<li th:each="goods:${hotGoods}"><a th:href="@{/goods?opr=view&id={id}(id=${goods.id})}"><img
+									th:src="${goods.image}" width="85"
+									height="85" th:alt="${goods.name}" th:title="${goods.name}" /></a>
+								<p class="pro_title">
+									<a th:href="@{/goods?opr=view&id={id}(id=${goods.id})}" th:text="${goods.name}">图书名</a>
+								</p>
+								<p class="brown">
+									￥<b th:text="${goods.salesPrice}">53.7</b>
+								</p></li>
+						</ul>
+					</div>
+				</div>
+				<!--热卖商品-->
+			</div>
+			<div class="main f_l">
+				<!--最新商品-->
+				<div class="box yellow m_10">
+					<div class="title title3">
+						<h2>
+							<img src="images/front/new_product.gif" alt="最新商品"
+								width="160" height="36" />
+						</h2>
+						<a class="more" href="">更多商品...</a>
+					</div>
+					<div class="cont clearfix">
+						<ul class="prolist">
+
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div th:replace="~{commons::help}"></div>
+		<div th:replace="~{commons::footer}"></div>
+	</div>
+</body>
+</html>

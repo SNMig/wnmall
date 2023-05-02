@@ -13,7 +13,7 @@ public class WebConfig {
     public FilterRegistrationBean<CorsFilter> corsFilterRegistrationBean(){
         FilterRegistrationBean<CorsFilter>filterFilterRegistrationBean=new FilterRegistrationBean<>();
         filterFilterRegistrationBean.setFilter(corsFilter());
-        filterFilterRegistrationBean.addUrlPatterns("/*");
+        filterFilterRegistrationBean.addUrlPatterns("/api/*");
         filterFilterRegistrationBean.setOrder(0);
         return filterFilterRegistrationBean;
     }
@@ -22,7 +22,7 @@ public class WebConfig {
     public FilterRegistrationBean<AuthFilter> authFilterRegistrationBean(){
         FilterRegistrationBean<AuthFilter>filterFilterRegistrationBean=new FilterRegistrationBean<>();
         filterFilterRegistrationBean.setFilter(authFilter());
-        filterFilterRegistrationBean.addUrlPatterns("/*");
+        filterFilterRegistrationBean.addUrlPatterns("/api/*");
         filterFilterRegistrationBean.setOrder(1);
         return filterFilterRegistrationBean;
     }
@@ -31,7 +31,7 @@ public class WebConfig {
     public FilterRegistrationBean<PermFilter> permFilterRegistrationBean(){
         FilterRegistrationBean<PermFilter>filterFilterRegistrationBean=new FilterRegistrationBean<>();
         filterFilterRegistrationBean.setFilter(permFilter());
-        filterFilterRegistrationBean.addUrlPatterns("/*");
+        filterFilterRegistrationBean.addUrlPatterns("/api/*");
         filterFilterRegistrationBean.setOrder(2);
         return filterFilterRegistrationBean;
     }
