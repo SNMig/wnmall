@@ -1,7 +1,7 @@
 <div class="navbar">
 	<ul>
 		<li><a href="">首页</a></li>
-		<li th:each="category : ${application.categoriesForNav}"><a th:href="@{/goods?opr=list&categoryid={cid}(cid=${category.id})}"
+		<li th:each="category : ${categories}"><a th:href="@{/goods?opr=list&categoryid={cid}(cid=${category.id})}"
 			th:text="${category.name}">科技</a></li>
 	</ul>
 	<div class="mycart">

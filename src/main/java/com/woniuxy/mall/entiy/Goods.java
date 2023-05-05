@@ -2,6 +2,8 @@ package com.woniuxy.mall.entiy;
 
 import lombok.Data;
 
+
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 @Data

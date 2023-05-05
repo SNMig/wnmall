@@ -24,13 +24,14 @@ public class MinioService {
         String originalFileName= file.getOriginalFilename();
         String newFileName= UUID.randomUUID().toString().replaceAll("-","");
         String suffix=originalFileName.substring(originalFileName.lastIndexOf("."));
+        String url = minioConfig.getEndpoint()+"/"+minioConfig.getBucketName()+"/"+newFileName+suffix;
         try {
-            objectArgs = PutObjectArgs.builder().bucket(minioConfig.getBucketName()).object("aaa.jpg")
+            objectArgs = PutObjectArgs.builder().bucket(minioConfig.getBucketName()).object(newFileName+suffix)
                     .stream(file.getInputStream(), file.getSize(), -1).contentType(file.getContentType()).build();
             //文件名称相同会覆盖
             minioClient.putObject(objectArgs);
-            GetPresignedObjectUrlArgs build = new GetPresignedObjectUrlArgs().builder().bucket("goods").object("aaa.jpg").method(Method.GET).build();
-            String url = minioConfig.getEndpoint()+"/"+minioConfig.getBucketName()+"/"+newFileName+suffix;
+            GetPresignedObjectUrlArgs build = new GetPresignedObjectUrlArgs().builder().bucket(minioConfig.getBucketName()).object(url).method(Method.GET).build();
+
 
             return url;
         } catch (Exception e) {

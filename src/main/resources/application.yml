@@ -1,16 +1,22 @@
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/wn_mall
-    username: postgres
+    url: jdbc:postgresql://43.138.158.118:5432/wn_mall
+    username: pg1
     password: 123456
   redis:
     host: 192.168.11.191
     port: 6379
-  mail:
-    host: smtp.qq.com #SMTP服务器地址
-    username: 1048321255@qq.com #登陆账号
-    password: yepzkejtozjlbfee #登陆密码（或授权码）
+  rabbitmq:
+    host: 192.168.11.191
+    username: admin
+    password: 123456
+    port: 5672
+    virtual-host: /
+#  mail:
+#    host: smtp.qq.com #SMTP服务器地址
+#    username: 1048321255@qq.com #登陆账号
+#    password: yepzkejtozjlbfee #登陆密码（或授权码）
 mybatis-plus:
   global-config:
     db-config:

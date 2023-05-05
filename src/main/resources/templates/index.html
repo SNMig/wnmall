@@ -29,7 +29,8 @@
 								</p>
 								<p class="brown">
 									￥<b th:text="${goods.salesPrice}">53.7</b>
-								</p></li>
+								</p>
+							</li>
 						</ul>
 					</div>
 				</div>
@@ -47,7 +48,16 @@
 					</div>
 					<div class="cont clearfix">
 						<ul class="prolist">
-
+							<li th:each="goods:${newestGoods}"><a th:href="@{/goods/view?id={id}(id=${goods.id})}"><img
+									th:src="${goods.image}" width="85"
+									height="85" th:alt="${goods.name}" th:title="${goods.name}" /></a>
+								<p class="pro_title">
+									<a th:href="@{/goods/view?id={id}(id=${goods.id})}" th:text="${goods.name}">图书名</a>
+								</p>
+								<p class="brown">
+									￥<b th:text="${goods.salesPrice}">53.7</b>
+								</p>
+							</li>
 						</ul>
 					</div>
 				</div>

@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 
 @Data
 public class User {
-    private Integer ID;
+    private Integer id;
     private String account;
     private String password;
     private String email;
