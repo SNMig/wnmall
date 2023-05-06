@@ -5,10 +5,10 @@ spring:
     username: pg1
     password: 123456
   redis:
-    host: 192.168.11.191
+    host: 43.138.158.118
     port: 6379
   rabbitmq:
-    host: 192.168.11.191
+    host: 43.138.158.118
     username: admin
     password: 123456
     port: 5672
@@ -33,7 +33,7 @@ logging:
       portal: debug
 
 minio:
-  endpoint: http://192.168.11.191:9000
+  endpoint: http://43.138.158.118:9000
   accessKey: minioadmin
   secretKey: minioadmin
   bucketName: goods
