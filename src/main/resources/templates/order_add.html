@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8"></meta>
+<title th:text="|提交订单-${application.name}|">提交订单-嗨购网上书城</title>
+<link rel="stylesheet" type="text/css" th:href="@{/css/index.css}" />
+</head>
+<body class="second">
+	<div class="brand_list container_2">
+		<div th:replace="~{commons::header}"></div>
+		<div class="wrapper clearfix">
+			<div class="position mt_10">
+				<span>您当前的位置：</span> <a href=""> 首页</a> » 成功提交订单
+			</div>
+			<div class="myshopping m_10">
+				<ul class="order_step">
+					<li><span class="first">1、查看购物车</span></li>
+					<li class="current_prev"><span>2、填写核对订单信息</span></li>
+					<li class="last_current"><span>3、成功提交订单</span></li>
+				</ul>
+			</div>
+
+			<div class="cart_box m_10">
+				<div class="title">成功提交订单</div>
+				<div class="cont">
+					<p class="order_stats">
+						<img width="48px" height="51px" alt=""
+							src="images/front/right.gif"><strong class="f14">订单已提交</strong>
+					</p>
+
+					<div class="stats_box">
+						<h3>订单信息</h3>
+						<table width="100%" class="form_table t_l orange">
+							<col width="75px" />
+							<col />
+
+							<tbody>
+								<tr>
+									<th>订单编号：</th>
+									<td class="f18 bold red2" >订单编号</td>
+								</tr>
+								<tr>
+									<th>订单金额：</th>
+									<td class="f18 bold red2">￥<b >订单金额</b></td>
+								</tr>
+								<tr>
+									<th>支付方式：</th>
+									<td class="f18 bold red2" >支付类型</td>
+								</tr>
+							</tbody>
+						</table>
+
+						<!--不是货到付款并且支付方式为线上支付-->
+						<!-- <th:block th:if="${order.payType ne '2'}"> -->
+							<form action='alipay' method='post' target='_blank'>
+							<input type="hidden" name="opr" th:value="pay">
+								<input type="hidden" name="id" >
+								<input type="hidden" name="orderNo">
+								<input class="submit_pay" type="submit" value="立即支付" />
+							</form>
+						<!-- </th:block> -->
+					</div>
+				</div>
+			</div>
+		</div>
+		<div th:replace="~{commons::footer}"></div>
+	</div>
+</body>
+</html>
