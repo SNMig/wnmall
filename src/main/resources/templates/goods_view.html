@@ -27,6 +27,10 @@
 					}
 				});
 			})
+
+			$("#buyNowBtn").click(function(){
+				location.href="/order/confirm?id="+id+"&num="+$("#buyNums").val()
+			})
 		})
 	</script>
 <style>

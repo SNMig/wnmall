@@ -58,9 +58,9 @@
             $("#save").click(function (){
                 let accept=$("#accept").val()
                 let mobile=$("#mobile").val()
-                let province=$("#province").val()
-                let city=$("#city").val()
-                let district=$("#district").val()
+                let province=$("#province").find(":selected").text()
+                let city=$("#city").find(":selected").text()
+                let district=$("#district").find(":selected").text()
                 let address=$("#address").val()
                 let defaultAddress=$("#defaultAddress").val()
                 let addressData={
@@ -80,11 +80,11 @@
                     contentType: 'application/json',
                     success: function (addressData) {
                         console.log(addressData)
+                        $("#province").text(addressData[2]);
+                        $("#city").text(addressData[3]);
+                        $("#district").text(addressData[4]);
                     }
                 });
-                console.log($("#province").find(":selected").text());
-                console.log($("#city").find(":selected").text());
-                console.log($("#district").find(":selected").text());
             })
         })
     </script>

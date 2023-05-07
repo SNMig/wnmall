@@ -22,7 +22,7 @@
 				</ul>
 			</div>
 
-			<form th:action='@{/order}' method='post' name='order_form'>
+			<form th:action='@{/order/add}' method='post' name='order_form'>
 				<div class="cart_box m_10">
 					<div class="title">填写核对订单信息</div>
 					<div class="cont">
@@ -36,19 +36,22 @@
 							<div class="prompt_4 m_10" id='address_often'>
 								<strong>常用收货地址</strong>
 								<ul class="addr_list">
-									<li th:each="address : ${addresses}">
+									<li th:each="address : ${addressList}">
 										<label>
 												<input class="radio" name="addresses" type="radio" />
 												<span th:text="${address.accept}"></span>&nbsp;&nbsp;&nbsp;&nbsp;
-												<span th:text="${address.telphone}"></span>&nbsp;&nbsp;&nbsp;&nbsp;
+												<span th:text="${address.mobile}"></span>&nbsp;&nbsp;&nbsp;&nbsp;
 												<span th:text="${address.province}"></span>
 												<span th:text="${address.city}"></span>
-												<span th:text="${address.area}"></span>
+												<span th:text="${address.district}"></span>
 												<span th:text="${address.address}"></span>
 										 </label>
 										</li>
 								</ul>
 							</div>
+							<input type="text" name="accept" value="">
+							<input type="text" name="mobile" value="">
+							<input type="text" name="address" value="">
 						</div>
 						<!--地址管理 结束-->
 						<!--支付方式 开始-->
@@ -97,16 +100,16 @@
 								</thead>	
 								
 								<tbody>
-									<tr th:each="orderItem : ${orderItems}">
-										<td><img th:src="@{${'/'+orderItem.goods.image}}" width="66px"
-											height="66px"  th:alt-title="${orderItem.goods.name}" /></td>
-										<td class="t_l"><a th:href="@{/goods?opr=view&id={id}(id=${orderItem.goods.id})}"
-											class="blue" th:text="${orderItem.goods.name}" target="_blank">图书名</a></td>
-										<td>￥<b th:text="${orderItem.goods.salesPrice}">100</b></td>
-										<td th:text="${orderItem.nums}">1</td>
-										<td>￥<b class="red2" th:text="${#numbers.formatDecimal(orderItem.goods.salesPrice*orderItem.nums,0,2)}"></b></td>
-										<input type="hidden" name="goodsid" th:value="${orderItem.goods.id}"/>
-										<input type="hidden" name="nums" th:value="${orderItem.nums}"/>
+									<tr th:each="goodsVo : ${goodsVoList}">
+										<td><img th:src="@{${goodsVo.goods.image}}" width="66px"
+											height="66px"  th:alt-title="${goodsVo.goods.name}" /></td>
+										<td class="t_l"><a th:href="@{/goods?opr=view&id={id}(id=${goodsVo.goods.id})}"
+											class="blue" th:text="${goodsVo.goods.name}" target="_blank">图书名</a></td>
+										<td>￥<b th:text="${goodsVo.goods.salesPrice}">100</b></td>
+										<td th:text="${goodsVo.num}">1</td>
+										<td>￥<b class="red2" th:text="${#numbers.formatDecimal(goodsVo.goods.salesPrice*goodsVo.num,0,2)}"></b></td>
+										<input type="hidden" name="goodsid" th:value="${goodsVo.goods.id}"/>
+										<input type="hidden" name="nums" th:value="${goodsVo.num}"/>
 									</tr>
 									<!-- 商品展示 结束-->
 								</tbody>

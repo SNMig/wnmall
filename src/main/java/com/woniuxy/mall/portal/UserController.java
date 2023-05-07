@@ -4,6 +4,7 @@ package com.woniuxy.mall.portal;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 
+import com.woniuxy.mall.commons.MailMsg;
 import com.woniuxy.mall.entiy.User;
 import com.woniuxy.mall.service.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -15,7 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import woniuxy.commons.MailMsg;
+
 
 import javax.servlet.http.HttpSession;
 import java.time.LocalDateTime;
