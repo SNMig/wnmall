@@ -11,6 +11,7 @@ import com.woniuxy.mall.mapper.OrderMapper;
 
 import com.woniuxy.mall.mapper.OrderdetailsMapper;
 import com.woniuxy.mall.service.OrderService;
+import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,6 +27,8 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     private OrderdetailsMapper orderdetailsMapper;
     @Autowired
     private GoodsMapper goodsMapper;
+    @Autowired
+    private AmqpTemplate amqpTemplate;
 
     @Transactional
     @Override
@@ -34,8 +37,11 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         for (Orderdetails orderdetail : orderdetails) {
             BigDecimal price = goodsMapper.selectById(orderdetail.getGoodsId()).getSalesPrice();
             totalMoney = totalMoney.add(price.multiply(new BigDecimal(orderdetail.getNums())));
+            Goods goods = goodsMapper.selectById(orderdetail.getGoodsId());
+            order.setName(goods.getName());
         }
         order.setAmount(totalMoney);
+
         orderMapper.insert(order);
         for (Orderdetails orderdetail : orderdetails) {
             Goods goods = goodsMapper.selectById(orderdetail.getGoodsId());
@@ -45,5 +51,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
             orderdetail.setPrice(goods.getSalesPrice());
             orderdetailsMapper.insert(orderdetail);
         }
+
+        amqpTemplate.convertAndSend("order_exchange", "order", order.getId());
     }
 }
