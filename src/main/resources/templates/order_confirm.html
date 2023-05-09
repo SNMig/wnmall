@@ -4,7 +4,6 @@
 <meta charset="utf-8" />
 <title th:text="|核对订单信息_${application.name}|">核对订单信息</title>
 <link rel="stylesheet" type="text/css" th:href="@{/css/index.css}" />
-
 </head>
 <body class="second">
 	<div class="brand_list container_2">
@@ -147,6 +146,7 @@
 							<input type="submit" class="submit_order" />
 						</p>
 					</div>
+					<input type="text" name="token" th:value="${token}"/>
 				</div>
 
 			</form>

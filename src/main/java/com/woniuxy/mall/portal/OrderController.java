@@ -8,6 +8,7 @@ import com.woniuxy.mall.service.OrderService;
 import com.woniuxy.mall.utils.MallUtil;
 import com.woniuxy.mall.vo.GoodsVO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,6 +22,10 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import cn.hutool.core.lang.UUID;
+
 
 @Controller
 @RequestMapping("/order")
@@ -29,6 +34,8 @@ public class OrderController {
     private AddressService  addressService;
     @Autowired
     private GoodsService goodsService;
+    @Autowired
+    private RedisTemplate redisTemplate;
     @GetMapping("/confirm")
     public String confirm(@RequestParam("id")Integer goodsId, Integer num, Model model, HttpSession session){
         User user=(User)session.getAttribute("user");
@@ -41,15 +48,26 @@ public class OrderController {
         goodsVO.setGoods(goods);
         goodsVO.setNum(num);
         model.addAttribute("goodsVoList", Arrays.asList(goodsVO));
+        String token=UUID.randomUUID().toString().replaceAll("-","");
+        redisTemplate.opsForValue().set(user.getId(),token,7, TimeUnit.MINUTES);
+        model.addAttribute("token",token);
         return "order_confirm";
     }
     @Autowired
     private OrderService orderService;
 
     @PostMapping("/add")
-    public String add(Order order, HttpServletRequest request,int[] goodsid,int[]nums,HttpSession session){
-        String[] goodsids=request.getParameterValues("goodsid");
+    public String add(Order order,String token, HttpServletRequest request,int[] goodsid,int[]nums,HttpSession session){
         User user = (User) session.getAttribute("user");
+        String uuid=(String) redisTemplate.opsForValue().get(user.getId());
+        if (token!=null){
+            if (!token.equals(uuid)){
+                return "info";
+            }
+            redisTemplate.delete(user.getId());
+        }
+        String[] goodsids=request.getParameterValues("goodsid");
+
         order.setNo(MallUtil.createOrderNo());
         order.setOrderTime(LocalDateTime.now());
         order.setUserId(user.getId());

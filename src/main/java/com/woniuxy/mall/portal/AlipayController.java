@@ -5,38 +5,33 @@ import com.alipay.api.AlipayClient;
 import com.alipay.api.DefaultAlipayClient;
 import com.alipay.api.request.AlipayTradePagePayRequest;
 import com.woniuxy.mall.config.AlipayConfig;
-import com.woniuxy.mall.entiy.Order;
-import com.woniuxy.mall.service.OrderService;
-import com.woniuxy.mall.utils.MallUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.time.LocalDateTime;
 
-@Configuration
+@Controller
 @RequestMapping("/alipay")
 public class AlipayController {
     @Autowired
     private AlipayConfig alipayConfig;
-    @Autowired
-    private OrderService orderService;
+
     @RequestMapping("pay")
     public void doPay(Integer id, HttpServletResponse response) throws IOException {
         response.setContentType("text/html;charset=" + alipayConfig.getCharset());
         AlipayClient alipayClient = new DefaultAlipayClient(alipayConfig.getGatewayUrl(), alipayConfig.getApp_id(),
-                alipayConfig.getMerchant_private_key(), "json", alipayConfig.getCharset(),
+                alipayConfig.getMerchant_private_key(), "json",alipayConfig.getCharset(),
                 alipayConfig.getAlipay_public_key(), alipayConfig.getSign_type());
+
         // 设置请求参数
         AlipayTradePagePayRequest alipayRequest = new AlipayTradePagePayRequest();
         alipayRequest.setReturnUrl(alipayConfig.getReturn_url());
         alipayRequest.setNotifyUrl(alipayConfig.getNotify_url());
-
-        String out_trade_no = "WN202305083124"+ LocalDateTime.now();
+        String out_trade_no = "WN202305083124";
         String total_amount = "1000";
         String subject = "Subject";
         String body = "商品";
@@ -66,4 +61,5 @@ public class AlipayController {
     public void notifyUrl(){
         //获取订单标识（订单号）,根据订单号修改其状态为已支付
     }
+
 }
