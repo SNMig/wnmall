@@ -52,7 +52,7 @@
 
 						<!--不是货到付款并且支付方式为线上支付-->
 						<!-- <th:block th:if="${order.payType ne '2'}"> -->
-							<form action='alipay' method='post' target='_blank'>
+							<form th:action='@{/alipay/pay}' method='post' target='_blank'>
 							<input type="hidden" name="opr" th:value="pay">
 								<input type="hidden" name="id" >
 								<input type="hidden" name="orderNo">

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8"></meta>
+<title th:text="|支付成功-${application.name}|">支付成功-嗨购网上书城</title>
+<link rel="stylesheet" type="text/css" th:href="@{/css/index.css}" />
+</head>
+<body>
+	<div class="brand_list container_2">
+		<div th:replace="~{commons::header}"></div>
+		<div class="wrapper clearfix">
+			<div class="position mt_10">
+				<span>您当前的位置：</span> <a href=""> 首页</a> » 成功支付
+			</div>
+			<div class="cart_box m_10">
+				<div class="title">成功支付</div>
+				<div class="cont">
+					<p class="order_stats">
+						<img width="48px" height="51px" alt=""
+							src="images/front/right.gif"><strong class="f14">订单已成功支付</strong>
+					</p>
+
+					<div class="stats_box">
+						<h3>订单信息</h3>
+						<table width="100%" class="form_table t_l orange">
+							<col width="75px" />
+							<col />
+
+							<tbody>
+								<tr>
+									<th>订单编号：</th>
+									<td class="f18 bold red2" th:text="${orderNo}">订单编号</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div th:replace="~{commons::footer}"></div>
+	</div>
+</body>
+</html>
