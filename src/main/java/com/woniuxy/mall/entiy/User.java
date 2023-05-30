@@ -2,10 +2,11 @@ package com.woniuxy.mall.entiy;
 
 import lombok.Data;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Data
-public class User {
+public class User implements Serializable {
     private Integer id;
     private String account;
     private String password;
